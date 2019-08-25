@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display == "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        $(document).ready(function () {
+            $('#submitButton').click(function () {
+                var appraiseramount = $('#appraiseramount').val();
+                var name = $('#name').val();
+                var mortnum = $('#mortnum').val();
+                var msid = $('#msid').val();
+
+                //Performing an asynchronous HTTP (Ajax) request.
+                $.ajax({
+                    url: "<%=sails.config.configurl.reWebserviceBaseUrl%>RE/app_blazers07?name=" + name + "&msid=" + msid + "&mortnum=" + mortnum + "&appraiseramount=" + appraiseramount,
+                    type: "GET",
+                    success: function (data) {
+                        console.log(data);
+                        var p = document.createElement("h4");
+                        document.getElementsByTagName('div')[1].appendChild(p);
+                        document.getElementById('submitButton').disabled = true;
+                        document.getElementById('cancelButton').disabled = true;
+                        document.getElementById('successMessage').innerHTML = "Successfully Sent!!!!";
+                        $.ajax({
+                            url: "<%=sails.config.configurl.insuranceWebserviceBaseUrl%>insurancewebservice/from_realestate?name=" + name + "&msid=" + msid + "&mortnum=" + mortnum + "&appraiseramount=" + appraiseramount,
+                            type: "GET",
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            error: function (error) {
+                                console.log(error)
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+
+            });
+        })
+
+    </script>
+</head>
+
+<body>
+    <nav class="nav navbar navbar-expand-lg	navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../customer_info">Real Estate Appraiser Portal</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active"><%= req.session.appUserName %> </a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="app_signout" method="POST">
+                            <button class="btn btn-dark" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="jumbotron container">
+            <div>
+                <% for(var i = 0; i< data.length; i++) { %>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name"
+                        value="<%= data[i].name %>">
+                </div>
+                <div class="form-group">
+                    <label for="msid">MlsID</label>
+                    <input type="number" class="form-control" id="msid" placeholder="MlsID" value="<%= data[i].msid %>">
+                </div>
+                <div class="form-group">
+                    <label for="mortnum">Mortgage Number</label>
+                    <input type="number" class="form-control" id="mortnum" placeholder="Mortgage Number"
+                        value="<%= data[i].mortnum %>">
+                </div>
+                <div class="form-group">
+                    <label for="appraiseramount">Appraisal Amount</label>
+                    <input type="number" class="form-control" id="appraiseramount"
+                        placeholder=" Please enter Appraisal Amount">
+                </div>
+                <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                <button id="cancelButton" type="submit" class="btn btn-danger">Cancel</button>
+                <p id="successMessage"></p>
+                <%} %>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

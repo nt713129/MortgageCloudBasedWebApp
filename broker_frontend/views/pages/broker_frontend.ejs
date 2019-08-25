@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- MBR Form for applying mortgage -->
+<head>
+  <title>Mortgage </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <%if (req.session.userName){%>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <script>
+
+
+    $(document).ready(function () {
+      $('#submitButton').click(function () {
+        var user_id = $('#userID').val();
+        var name = $('#name').val();
+        var address = $('#address').val();
+        var city = $('#city').val();
+        var province = $('#province').val();
+        var phonenumber = $('#phonenumber').val();
+        var comname = $('#comname').val();
+        var comadd = $('#comadd').val();
+        var password = $('#password').val();
+        var msid = $('#msid').val();
+        var mortvalue = $('#mortvalue').val();
+
+        //Performing an asynchronous HTTP (Ajax) request.
+        $.ajax({
+          url: "<%=sails.config.configurl.brokerWebserviceBaseUrl%>broker_blazers07?user_id=" + user_id + "&name=" + name + "&address=" + address + "&city=" + city + "&province=" + province + "&phonenumber=" + phonenumber + "&comname=" + comname + "&comadd=" + comadd + "&password=" + password + "&msid=" + msid + "&mortvalue=" + mortvalue,
+          type: "GET",
+          success: function (data) {
+            console.log(data);
+            var p = document.createElement("h4");
+            document.getElementsByTagName('div')[1].appendChild(p);
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('successMessage').innerHTML = " The mortgage form has been successfully submitted!!!!";
+            document.getElementById('additionalInfo').innerHTML = " Additional information is needed from the employer";
+            document.getElementById('mortgageNumber').innerHTML = "Please provide the Mortgage application number: " + data;
+            document.getElementById('webserviceInfo').innerHTML = " and the webservice address is <%=sails.config.configurl.brokerWebserviceBaseUrl%>broker/update_status";
+            document.getElementById('trackInfo').innerHTML = "You can track the status of the application by clicking on the below button";
+            document.getElementById('login').style.display = 'inline';
+
+          },
+          error: function (error) {
+            console.log(error)
+          }
+        });
+
+      });
+    })
+  </script>
+  <div class="container">
+    <div style="text-align:center">
+      <font color="blue">
+        <br>
+        <h2>MBR-Mortgage Broker Form</h2>
+      </font>
+    </div>
+    <br>
+
+    <div>
+      <div class="row">
+        <input type="hidden" id="userID" name="userID" value="<%=user_id%>">
+        <div class="form-group col-md-5">
+          <label for="inputName" class="control-label">Full Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter the Full Name" value="<%=user_name%>"
+            required>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="inputName" class="control-label">Address</label>
+          <input type="text" class="form-control" id="address" placeholder="Address" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="inputName" class="control-label">City</label>
+          <input type="text" class="form-control" id="city" placeholder="City" required>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="inputName" class="control-label">Provice</label>
+          <input type="text" class="form-control" id="province" placeholder="Province" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputName" class="control-label">Phone Number</label>
+          <input type="text" class="form-control" id="phonenumber" placeholder="Phone Number" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-5">
+          <label for="inputName" class="control-label">Company Name</label>
+          <input type="text" class="form-control" id="comname" placeholder="Company Name" required>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="inputName" class="control-label">Company Address</label>
+          <input type="text" class="form-control" id="comadd" placeholder="Company Address" required>
+        </div>
+      </div>
+      <br>
+      <div>
+        <div class="form-group col-md-7">
+          <label for="inputName" class="control-label">MIsID</label>
+          <input type="text" class="form-control" id="msid" placeholder="MIsID" required>
+          <span id="mslidError" class="error"></span>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="inputName" class="control-label">Mortgage Value</label>
+          <input type="text" class="form-control" id="mortvalue" placeholder="Mortgage Value in $" required>
+          <span id="mortValueError" class="error"> </span>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+
+    <div id="login" class="form-group" style="display:none; text-align: center;">
+      <p style="text-align: center;">
+        <h4 id="successMessage" style="color: green"></h4>
+        <h5 id="additionalInfo"></h5>
+        <h5 id="mortgageNumber"></h5>
+        <h5 id="webserviceInfo"></h5>
+        <h5 id="trackInfo"></h5>
+        <form action="mortgage_status" method="POST"><button id="loginButton" type="submit" class="btn btn-primary">
+            Check Status</button></form>
+      </p>
+    </div>
+
+    <%} else{ %>
+
+    <div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+      <div class="card grid col-lg-5">
+        <div class="card-body">
+          <div>
+            <a href="/"> Click here to Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%}%>
+</body>
+
+</html>

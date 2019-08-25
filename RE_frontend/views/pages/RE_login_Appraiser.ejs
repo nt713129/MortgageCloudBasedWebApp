@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<nav class="nav navbar navbar-expand-lg	navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Real Estate Customer Appraiser Portal</a>
+        <div class="collapse navbar-collapse">
+        </div>
+    </div>
+</nav>
+<div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+    <div class="card grid col-lg-5">
+        <div class="card-body">
+            <div>
+                <h4>Appraiser Login Portal</h4>
+            </div>
+            <form action="RE/login_authenticate_app" method="POST" onsubmit="login_authenticate_app()">
+                <!-- Login -->
+                <div>
+                    <span id="loginError" class="error"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Name" required>
+                </div>
+                <div class="input-group mb-3">
+                    <input id="password" name="password" type="password" class="form-control"
+                        placeholder="Enter password" required>
+                </div>
+                <div>
+                    <form action="customer_info" method="POST">
+                        <button id="loginButton" type="submit" class="btn btn-primary">
+                            Login </button></form>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<%if (req.session.userName){%>
+<div class="container top" style="text-align: center;margin-left: 300px;margin-top: 25px">
+    <!-- Insurance status of the Mortgage Applied by the customer
+    Details of customer and the mortgage applied,insured $ value, deductible ($ value) -->
+    <div class="card grid col-lg-10"></div>
+        <div class="card-body">
+            <form action="homepage" method="POST" onsubmit="login_authenticate()">
+                <%if (insurance_info.length > 0){ %>
+                <table style="width:100%; text-align: center;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Mortgage Number</th>
+                        <th>MlsID</th>
+                        <th>Appraiser Amount</th>
+                        <th>Insurance Value</th>
+                        <th>Deduction Value</th>
+                        <th>Insurance Status</th>
+                    </tr>
+                    <% for(var i = 0; i< insurance_info.length; i++){ %>
+                    <tr>
+                        <td><%= insurance_info[i].name%></td>
+                        <td><%= insurance_info[i].mortgage_num%></td>
+                        <td><%= insurance_info[i].msid%></td>
+                        <td><%= insurance_info[i].appraiser_amount%></td>
+                        <td><%= insurance_info[i].insurance_value%></td>
+                        <td><%= insurance_info[i].deduction_value%></td>
+                        <td>
+                            <%if (insurance_info[i].insurance_status == "Received"){%>
+                            <span id="status-approved"
+                                style="color: green;"><%= insurance_info[i].insurance_status%></span>
+                            <% } else{ %>
+                            <span id="status-default" style="color: red;"><%= insurance_info[i].insurance_status%></span>
+                            <%}%>
+                            </td>
+                    </tr>
+                    <%  } %>
+                </table>
+                <%}
+                    else
+                    {%>
+                <div style="margin-top:5px; text-align:center; color:blue;">
+                    <h4> You have no Insurances</h4>
+                </div>
+                <%}%>
+                    <div style="margin-top: 16px">
+                        <button type="submit" class="btn btn-primary mb-3"> Home </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%} else{ %>
+
+                <div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+                    <div class="card grid col-lg-5">
+                        <div class="card-body">
+                            <div>
+                                <a href="/"> Click here to Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%}%>

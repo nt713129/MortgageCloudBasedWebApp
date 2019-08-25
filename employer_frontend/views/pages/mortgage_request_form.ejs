@@ -1,0 +1,37 @@
+<%if (req.session.userName){%>
+  <!-- Form for approving the mortgage request -->
+<div class="container top">
+        <div class="card grid col-lg-5">
+            <div class="card-body">
+                <div>
+                    <h4>Mortgage Request Form</h4>
+                </div>
+                <form action="mortgageRequest" onsubmit="return validateMortgageRequest()">
+                    <div class="input-group mb-3">
+                        <input id="broker_application_number" name="broker_application_number" type="text" class="form-control" placeholder="Mortgage Application Number"
+                            required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="broker_web_service_address" name="broker_web_service_address" type="text" class="form-control" placeholder="Broker Webservice Address"
+                            required>
+                    </div>
+                    <input id="terms" type="checkbox" name="terms" value="Agreed" > I Agree to <a href="*">terms and conditions</a><br></br>
+                    <div>
+                        <button type="submit" class="btn btn-primary mb-3 calculate"> Request </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<%} else{ %>
+  <div class="container top" style="text-align: center;margin-left: 300px;margin-top: 25px">
+    <div class="card grid col-lg-5">
+      <div class="card-body">
+        <div>
+          <a href="/"> Click here to Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%}%>
+    <script src="/js/mortgageRequest.js"></script>

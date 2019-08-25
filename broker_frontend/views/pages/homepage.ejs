@@ -1,0 +1,50 @@
+<%if (req.session.userName){%>
+<div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+  <div class="card grid col-lg-7">
+    <div class="card-body">
+      <div>
+        <b>
+          <h4>Welcome <%= req.session.userName %></h4>
+        </b>
+      </div>
+      <div class="row" style="margin-top: 25px">
+        <div class="col-md-7">
+          <form action="fill_mortgage_form" method="POST">
+            <button type="submit" class="btn btn-primary mb-3">Fill Mortgage Form</button>
+          </form>
+        </div>
+        <div class="col-md-5">
+          <form action="employer_info_status" method="POST">
+            <button type="submit" class="btn btn-primary mb-3">Employer Request Status</button>
+          </form>
+        </div>
+        <div class="row" style="text-align: center;margin-left: 100px">
+          <div class="col-md-12">
+            <form action="insurance_status" method="POST">
+              <button type="submit" class="btn btn-primary mb-3">Insurance Status</button>
+            </form>
+          </div>
+        </div>
+        <div class="row" style="text-align: center;margin-left: 100px">
+          <div class="col-md-12">
+            <form action="mortgage_status" method="POST">
+              <button type="submit" class="btn btn-primary mb-3">Mortgage Status</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%} else{ %>
+
+<div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+  <div class="card grid col-lg-5">
+    <div class="card-body">
+      <div>
+        <a href="/"> Click here to Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+<%}%>

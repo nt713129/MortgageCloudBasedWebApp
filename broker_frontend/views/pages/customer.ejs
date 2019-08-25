@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<!-- Form for creating an account with the MBR portal -->
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <h2 style="text-align: center">Customer Sign up</h2><br><br><br>
+  <div class="container">
+    <form action="customer_signup" method="POST" onsubmit="customer_signup()">
+      <div class="form-group">
+        <label for="user_name">Username</label>
+        <input type="text" class="form-control" id="user_name" name="user_name">
+      </div>
+
+      <div>
+        <label for="email_id">Email ID</label>
+        <input type="email" class="form-control" id="email_id" name="email_id">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+
+      <div>
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password" onkeyup="match_password()">
+        <span id='message'></span>
+      </div>
+      <br>
+      <% if (typeof mailIDUniqueError !='undefined'){%>
+      <div>
+        <span id="mailIDUniqueError" class="error" style="margin-bottom: 5px;"><%=mailIDUniqueError%></span>
+      </div>
+      <%}%>
+      <button type="submit" class="btn btn-primary" id="signup" disabled>Sign Up</button>
+
+
+  </div>
+  </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script>
+    var match_password = function () {
+      if (document.getElementById('password').value ==
+        document.getElementById('confirm_password').value) {
+        document.getElementById('signup').disabled = false;
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'Passwords match';
+      } else {
+        document.getElementById('signup').disabled = true;
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Passwords mismatch';
+      }
+    }
+    document.getElementById("user_name").addEventListener("input", function (event) {
+      document.getElementById("mailIDUniqueError").innerHTML = ""
+    });
+    document.getElementById("email_id").addEventListener("input", function (event) {
+      document.getElementById("mailIDUniqueError").innerHTML = ""
+    });
+  </script>
+
+</body>
+
+</html>

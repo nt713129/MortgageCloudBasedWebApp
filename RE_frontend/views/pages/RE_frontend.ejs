@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Real Estate</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <script>
+
+
+    $(document).ready(function () {
+      $('#submitButton').click(function () {
+        var name = $('#name').val();
+        var msid = $('#msid').val();
+        var mortnum = $('#mortnum').val();
+        var isEvaluated = false;
+
+
+        //Performing an asynchronous HTTP (Ajax) request.
+        $.ajax({
+          url: "<%=sails.config.configurl.reWebserviceBaseUrl%>re_blazers07?name=" + name + "&msid=" + msid + "&mortnum=" + mortnum + "&isEvaluated=" + isEvaluated,
+          type: "GET",
+          success: function (data) {
+            console.log();
+            var p = document.createElement("h4");
+            document.getElementsByTagName('div')[1].appendChild(p);
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('successMessage').innerHTML = " The Real Estate form has been successfully submitted!!!!";
+          },
+          error: function (error) {
+            console.log(error)
+          }
+        });
+
+      });
+    })
+  </script>
+
+  <nav class="nav navbar navbar-expand-lg	navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/RE_frontend">Real Estate Portal</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link active"><%= req.session.reUserName %> </a>
+          </li>
+        </ul>
+        <form action="re_customer_signout" method="POST">
+          <button class="btn btn-dark" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <div style="text-align:center">
+      <font color="blue">
+        <br>
+        <h2>RE-Real Estate Broker Form</h2>
+      </font>
+    </div>
+    <br>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+      <label for="msid">MlsID</label>
+      <input type="number" class="form-control" id="msid" placeholder="MlsID">
+    </div>
+    <div class="form-group">
+      <label for="msid">Mortgage Number</label>
+      <input type="number" class="form-control" id="mortnum" placeholder="Mortgage Number">
+    </div>
+    <button id="submitButton" type="submit" class="btn btn-primary" style="margin-left: 500px">Submit</button>
+    <p id="successMessage"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!-- Form for Login to Employer Portal -->
+<div class="container top">
+      <div class="card grid col-lg-5">
+          <div class="card-body">
+              <div>
+                  <h4>Employer Portal</h4>
+              </div>
+              <form action="authenticate" method="POST">
+                  <!-- Login -->
+                  <% if (typeof loginError !='undefined'){%>
+                  <div>
+                      <span id="loginError" class="error"> Either Username or Password is incorrect</span>
+                  </div>
+                  <%}%>
+                  <div class="input-group mb-3">
+                      <input id="employee_id" name="employee_id" type="text" class="form-control" placeholder="Login ID"
+                          required>
+                  </div>
+                  <div class="input-group mb-3">
+                      <input id="password" name="password" type="password" class="form-control" placeholder="Enter password"
+                          required>
+                  </div>
+                  <div>
+                      <button type="submit" class="btn btn-primary mb-3 calculate"> Login </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>

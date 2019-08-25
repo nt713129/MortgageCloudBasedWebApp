@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display == "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <nav class="nav navbar navbar-expand-lg	navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/customer_info">Real Estate Appraiser Portal</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link active"><%= req.session.appUserName %> </a>
+          </li>
+          <li class="nav-item">
+            <form action="app_signout" method="POST">
+              <button class="btn btn-dark" type="submit">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="jumbotron container">
+      <div>
+        <%if (data.length > 0){ %>
+        <table style="width:100%; text-align: center;">
+          <tr>
+            <th>Name</th>
+            <th>MlsID</th>
+            <th>Mortgage Number</th>
+            <th>Action</th>
+          </tr>
+          <% for(var i = 0; i< data.length; i++){ %>
+          <tr>
+            <td><%= data[i].name%></td>
+            <td><%= data[i].msid%></td>
+            <td><%= data[i].mortnum%></td>
+            <% if (!data[i].isEvaluated){%>
+            <td><button class="btn btn-block btn-danger"
+                onclick="evaluateAppraisal('<%=data[i].name%>,<%=data[i].msid%>,<%=data[i].mortnum%>')">Evaluate</button>
+            </td>
+            <%}else{%>
+            <td>N/A</td>
+            <%}%>
+          </tr>
+          <%  } %>
+        </table>
+        <%}else
+              {%>
+        <div style="margin-top:5px; text-align:center; color:blue;">
+          <h4> You have no Applications</h4>
+        </div>
+        <%}%>
+
+</div>
+
+</div>
+    </main>
+</body>
+<script>
+  //to ask for confirmation from the user
+  function evaluateAppraisal(mortgage_info) {
+    if (confirm("Are you sure?")) {
+      console.log(mortgage_info);
+      mortgage_info = mortgage_info.split(",")
+      var getUrl = window.location;
+      var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[0];
+      var url = "";
+      url = baseUrl + "evaluate?name=" + mortgage_info[0] + "&msid=" + mortgage_info[1] + "&mortnum=" + mortgage_info[2];
+      window.location = url
+    }
+  }
+</script>
+</html>

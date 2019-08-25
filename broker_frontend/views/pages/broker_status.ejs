@@ -1,0 +1,58 @@
+<%if (req.session.userName){%>
+<div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+    <!-- Status of Mortgage applied// Employer -->
+    <div class="card grid col-lg-5">
+        <div class="card-body">
+            <form action="homepage" method="POST" onsubmit="login_authenticate()">
+                <%if (employer_info.length > 0){ %>
+                <table style="width:100%; text-align: center;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Mortgage Number</th>
+                        <th>MlsID</th>
+                        <th>Mortgage Value</th>
+                        <th>Employer Info Status</th>
+                    </tr>
+                    <% for(var i = 0; i< employer_info.length; i++){ %>
+                    <tr>
+                        <td><%= employer_info[i].name%></td>
+                        <td><%= employer_info[i].mortgage_num%></td>
+                        <td><%= employer_info[i].msid%></td>
+                        <td><%= employer_info[i].mortgage_value%></td>
+                        <td>
+                            <%if (employer_info[i].employer_info_status == "Received"){%>
+                            <span id="status-approved"
+                                style="color: green;"><%= employer_info[i].employer_info_status%></span>
+                            <% } else{ %>
+                            <span id="status-default"
+                                style="color: red;"><%= employer_info[i].employer_info_status%></span>
+                            <%}%>
+                        </td>
+                    </tr>
+                    <%  } %>
+                </table>
+                <%}
+                else
+                {%>
+                <div style="margin-top:5px; text-align:center; color:blue;">
+                    <h4> You have no Applications</h4>
+                </div>
+                <%}%>
+                <div style="margin-top: 16px">
+                    <button type="submit" class="btn btn-primary mb-3"> Home </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%} else{ %>
+                <div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+                    <div class="card grid col-lg-5">
+                        <div class="card-body">
+                            <div>
+                                <a href="/"> Click here to Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%}%>

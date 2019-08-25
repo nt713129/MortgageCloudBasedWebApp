@@ -1,0 +1,78 @@
+<%if (req.session.userName){%>
+<div class="container top" style="text-align: center;margin-left: 300px;margin-top: 25px">
+        <!-- Status of Mortgage applied,Pending or Approved -->
+        <!-- Name,Mortgage number and msid of mortgage applied and its status -->
+    <div class="card grid col-lg-10">
+        <div class="card-body">
+            <form action="homepage" method="POST" onsubmit="login_authenticate()">
+                <%if (mortgage_info.length > 0){ %>
+                <table style="width:100%; text-align: center;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Mortgage Number</th>
+                        <th>MlsID</th>
+                        <th>Employer Info Status</th>
+                        <th>Insurance Status</th>
+                        <th>Mortgage Status</th>
+                    </tr>
+                    
+                    <% for(var i = 0; i< mortgage_info.length; i++){ %>
+                    <tr>
+                        <td><%= mortgage_info[i].name%></td>
+                        <td><%= mortgage_info[i].mortgage_num%></td>
+                        <td><%= mortgage_info[i].msid%></td>
+                        <td>
+                            <%if (mortgage_info[i].employer_info_status == "Received"){%>
+                            <span id="status-approved"
+                                style="color: green;"><%= mortgage_info[i].employer_info_status%></span>
+                            <% } else{ %>
+                            <span id="status-default"
+                                style="color: red;"><%= mortgage_info[i].employer_info_status%></span>
+                            <%}%>
+                        </td>
+                        <td>
+                             <%if (mortgage_info[i].insurance_status == "Received"){%>
+                            <span id="status-approved"
+                                style="color: green;"><%= mortgage_info[i].insurance_status%></span>
+                            <% } else{ %>
+                            <span id="status-default" style="color: red;"><%= mortgage_info[i].insurance_status%></span>
+                            <%}%>
+                        </td>
+                        <td>
+                            <%if (mortgage_info[i].mortgage_status == "Approved"){%>
+                            <span id="status-approved"
+                                style="color: green;"><%= mortgage_info[i].mortgage_status%></span>
+                            <% } else{ %>
+                            <span id="status-default" style="color: red;"><%= mortgage_info[i].mortgage_status%></span>
+                            <%}%>
+                        </td>
+                        </tr>
+                        <%  } %>
+                </table>
+                <%}
+                        else
+                        {%>
+                <div style="margin-top:5px; text-align:center; color:blue;">
+                    <h4> You have no Mortgages</h4>
+                </div>
+                <%}%>
+                        <div style="margin-top: 16px">
+                            <button type="submit" class="btn btn-primary mb-3"> Home </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+        <%} else{ %>
+
+                <div class="container top" style="text-align: center;margin-left: 470px;margin-top: 25px">
+                    <div class="card grid col-lg-5">
+                        <div class="card-body">
+                            <div>
+                                <a href="/"> Click here to Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
