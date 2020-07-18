@@ -12,7 +12,7 @@
     "grunt": "1.0.4",
     "jquery": "^3.4.1",
     "loadsh": "0.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "request": "^2.88.0",
     "sails": "^1.2.3",
     "sails-hook-grunt": "^4.0.0",
