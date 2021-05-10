@@ -11,7 +11,7 @@
     "bcryptjs": "^2.4.3",
     "grunt": "1.0.4",
     "loadsh": "0.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "sails": "^1.2.3",
     "sails-hook-grunt": "^4.0.0",
     "sails-hook-orm": "^2.1.1",
